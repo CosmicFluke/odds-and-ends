@@ -4,7 +4,7 @@ This repository is a collection of assorted personal projects by Asher Minden-We
 
 ####`avltree`
 Python implementations of:
-* Binary Search Tree, in module `bstbase`, using a node class with functions for search and insert.
+e* Binary Search Tree, in module `bstbase`, using a node class with functions for search and insert.
  * No container class included.
  * Deletion not yet implemented
 * AVL Tree, in module `avltree` extending the BST node class and new implementations for search and insert.
@@ -18,4 +18,6 @@ Python implementations of:
 * Python script that parses a text file containing a sequence of matrices, calculates the matrix product, and prints the formatted product to stdout
 
 ####`projecteuler`
-* Collection of python solutions to Project Euler problems
+* Collection of solutions to Project Euler problems
+ * Python: problems 8-20 (except 10 and 19)
+ * Java: problem 4
