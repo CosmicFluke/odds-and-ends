@@ -13,7 +13,7 @@ class CountingAVLNode(AVLNode):
     def __init__(self, key, data=None):
         ''' Must provide integer key.  May also provide any object as "data",
         and an initial count/weight. '''
-        super().__init__(key, left, right)
+        super().__init__(key, None, None)
         
         self.data = data    # Any data associated with this node's key
         self.count = 0      # The count (weight) associated with this node's key
@@ -21,13 +21,7 @@ class CountingAVLNode(AVLNode):
         
         # Initialize value, used for AugHeapIncreasePriority
         self.heapIndex = -1
-        
-        # If a specific heap and count was provided at instantiation, 
-        # insert node into heap
-        if self.count > 0:
-            AugHeapInsert(self.heap, self)
             
-        
     def __repr__(self):
         return str((self.__str__(), str(self.count)))
         
@@ -153,8 +147,6 @@ def AugHeapBubbleDown(H, ind):
         H[ind].heapIndex, H[right_child_i].heapIndex = ind, right_child_i
         AugHeapBubbleDown(H, right_child_i)
         
-def AugHeapDecreasePriority(H, node, p)
-        
 if __name__ == "__main__":
     
     # Testing the OrderedWeightedSet
@@ -177,7 +169,7 @@ if __name__ == "__main__":
             test.INC_COUNT(i)
     
     # Show current heap        
-    print(test.heap)
+    print(test.root.heap)
     
     # Perform DEC_BIG_COUNT operations
     big = test.DEC_BIG_COUNT()
@@ -188,7 +180,7 @@ if __name__ == "__main__":
     print(big) # Expected: 9
     
     # Show current heap
-    print(test.heap)
+    print(test.root.heap)
     
     # Increment count for key=6 twice
     test.INC_COUNT(6)
@@ -197,4 +189,4 @@ if __name__ == "__main__":
     print(big) # Expected: 6
     
     # Show current heap
-    print(test.heap)
+    print(test.root.heap)

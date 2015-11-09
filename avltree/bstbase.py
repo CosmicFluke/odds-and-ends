@@ -1,4 +1,14 @@
-# BST Node and Operations
+#!/usr/bin/env python3
+
+# BST Node Class and Operations
+# The BST is not implemented with a container class here
+
+__author__ = "Asher Minden-Webb"
+__credits__ = ["Asher Minden-Webb", "Elias Tragas"]
+__license__ = "GPL"
+__version__ = "1.0.3"
+
+__python_version__ = "3.x"
 
 import math
 
