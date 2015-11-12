@@ -1,3 +1,13 @@
+#!/usr/bin/env python3
+
+__author__ = "Asher Minden-Webb"
+__title__ = "Project Euler Problem 13: Large Sum"
+__date_created__ = "2014/09/11"
+
+'''
+Work out the first ten digits of the sum of the following one-hundred 50-digit numbers.
+'''
+
 NUMS = '''
 37107287533902102798797998220837590246510135740250
 46376937677490009712648124896970078050417018260538
@@ -100,12 +110,24 @@ NUMS = '''
 20849603980134001723930671666823555245252804609722
 53503534226472524250874054075591789781264330331690'''
 
-numlist = NUMS.strip().split('\n')
-total = 0
-for num in numlist:
-    total += int(num)
-    
-print(total)
-dig = len(str(total)) - 10
-div = 10 ** dig
-print("First 10 digits: ", total // div)
+first_ten = [] # List of answers from different methods
+
+# Compute total.  Python is cheating.
+total = sum([int(num) for num in NUMS.strip().split('\n')])
+
+# Method 1
+unneeded_digits = len(str(total)) - 10
+divisor = 10 ** unneeded_digits
+first_ten.append(str(total // divisor))
+
+# Method 2
+first_ten.append(str(total)[:10])
+
+# Method 3 -- Only adds the first 12 digits of each number together
+top_digits_total = sum([int(num[:12]) for num in NUMS.strip().split('\n')])
+first_ten.append(str(top_digits_total)[:10])
+
+# Output    
+print("Sum: ", total)
+print("First 10 digits: ")
+print('\n'.join(first_ten))

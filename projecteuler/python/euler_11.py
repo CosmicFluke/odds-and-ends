@@ -1,3 +1,21 @@
+#!/usr/bin/env python3
+
+__author__ = "Asher Minden-Webb"
+__title__ = "Project Euler Problem 11: Largest product in a grid"
+__date_created__ = "2014/09/24"
+
+'''
+URL: https://projecteuler.net/problem=11
+
+In the 20×20 grid below (see GRID), four numbers along a diagonal line have 
+been marked in red.
+
+The product of these numbers is 26 × 63 × 78 × 14 = 1788696.
+
+What is the greatest product of four adjacent numbers in the same direction 
+(up, down, left, right, or diagonally) in the 20×20 grid?
+'''
+
 import time, random
 
 GRID = '''
@@ -24,24 +42,20 @@ GRID = '''
 '''
 
 def build_grid(text: str) -> list:
-    lines = text.strip().split('\n')
-    rows = []
-    for line in lines:
-        rows.append(line.strip().split())
-    for row in rows:
-        i = 0
-        while i < len(row):
-            row[i] = int(row[i])
-            i += 1
-    return rows
-
-def generate_random_grid(rows: int=20, cols: int=20) -> list:
-    grid = []
-    for row in range(rows):
-        grid.append([random.randint(1,99) for x in range(cols)])
-    return grid
+    '''
+    Builds a two-dimensional list from the given string.  Expected
+    input has uniformly-long newline-delimited rows of two-digit numbers, 
+    separated by spaces.  The input string has leading and trailing newline 
+    characters.
+    '''
+    
+	# Build list of lists, where each sub-list represents a row of integers
+    return [[int(num) for num in line.strip().split()] for line in text.strip().split('\n')]
 
 def row_product(grid: list) -> int:
+	''' 
+	Finds the greatest product of 4 horizontally adjacent numbers in the grid
+	'''	
     greatest = 0
     for row in grid:
         i = 0
@@ -56,6 +70,9 @@ def row_product(grid: list) -> int:
     return greatest, winners
 
 def col_product(grid: list) -> int:
+	''' 
+	Finds the greatest product of 4 vertically adjacent numbers the grid 
+	'''
     greatest = 0
     for col in range(len(grid[0])):
         row = 0
@@ -70,60 +87,76 @@ def col_product(grid: list) -> int:
     return greatest, winners
 
 def diag_product(grid: list) -> int:
+	'''
+	Finds the greatest product of 4 diagonally adjacent numbers in the grid
+	'''
     greatest = 0
     depth = len(grid) - 3
+	# Check each row
     for row in range(depth):
         width = len(grid[row]) - 3
         col, i = 0, 0
+		# Check diagonal top-left to bottom-right
         while col < width:
-            group, product = [grid[row + x][col + x] for x in range(4)], 1
+            group, product = [(row + x, col + x) for x in range(4)], 1
             for x in group:
-                product *= x
+                product *= grid[x[0]][x[1]]
             if product > greatest:
-                greatest, winners = product, \
-                    [[row + x, col + x] for x in range(4)]
+                greatest, winners = product, group
             col += 1
-            
+		# Check diagonal top-right to bottom-left
         while i < width:
             col = width + 2 - i
-            group, product = [grid[row + x][col - x] \
-                        for x in range(4)], 1
+            group, product = [(row + x, col - x) for x in range(4)], 1
             for x in group:
-                product *= x
+                product *= grid[x[0]][x[1]]
             if product > greatest:
-                greatest, winners = product, \
-                    [[row + x, col - x] for x in range(4)]
+                greatest, winners = product, group
             i += 1
     return greatest, winners
+		
+def grid_to_str(grid: list) -> None:
+	''' Creates a string representation of a list of lists of numbers '''
+	# Get the number of digits in the largest number in the grid
+	max_num = len(str(max([max(row) for row in grid])))
+	
+	# Define lambda function to convert a number to a digit string with leading zeros
+	num_to_string = lambda num: '0' * (digits - len(str(num))) + str(num) + ' '
+	
+	# Build a list where each row is a list of converted digit strings
+	rows_of_strings = [[num_to_string(num) for num in row] for row in grid]
+	
+	# Convert inner lists to strings, join those strings, and return final string
+	return '\n'.join([''.join(row) for row in rows_of_strings])
+	
 
-def display_grid(grid: list) -> None:
-    for row in range(len(grid)):
-        for col in range(len(grid[row])):
-            num = grid[row][col]
-            if [row, col] in locations:
-                disp = chr(9656) + "%d" %num + chr(9666)
-            else:
-                disp = ' ' + str(grid[row][col]) + ' '
-                disp = (2 - len(disp)) * ' ' + disp
-            
-            spacing = 5 - len(disp)
-            print(' ' + disp, end=spacing * ' ')
-        print('\n')
+
+# Lambda function that generates a random grid for testing
+generate_random_grid = (lambda rows, cols:
+	[[random.randint(1,99) for x in range(cols)] for row in range(rows)])
+	
+# Create a 4x4 test grid (Not currently utilized)
+test_table_4x4 = generate_random_grid(4,4)
 
 
+# ------- Get Results Using Given Grid -------- #
+
+# Start a timer
 start = time.time()
 
-table = build_grid(GRID)
-#table = generate_random_grid()
+table = build_grid(GRID)  # Table is the default (given) grid
 
+# Get the greatest product in each direction; map products to lists of indices
 directions = {x[0]:x[1] for x in \
               (col_product(table), row_product(table), diag_product(table))}
+			  
+# Get max product
 greatest, locations = max(directions), directions[max(directions)]
 
-display_grid(table)
-
+# Stop Timer
 end = time.time()
 
+print(grid_to_str(table))
 print(greatest)
 print("Elapsed:", end - start)
 
