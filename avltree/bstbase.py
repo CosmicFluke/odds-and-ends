@@ -41,7 +41,7 @@ class BSTNode:
     def __str__(self):
         return str(self.key)
 
-def AVLRank(root, node):
+def BSTRank(root, node):
     ''' Precondition: node is in the AVL tree rooted at root '''
     if node == root:
         if node.hasLeft():
