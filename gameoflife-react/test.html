@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- Author: Asher Minden-Webb -->
+<!-- This file was used for on-the-fly testing & debugging -->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Game of Life</title>
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+      
+  </head>
+  <body>
+    <h1>Game of Life!</h1>
+    <div id="content"></div>
+    <script src="scripts/gameoflife.js" type="text/babel"></script>
+    <script type="text/babel">
+        gameState = [
+            [0, 0, 0, 0, 0, 0], 
+            [0, 0, 0, 0, 0, 0], 
+            [0, 1, 1, 1, 1, 0], 
+            [0, 1, 0, 1, 0, 0], 
+            [0, 0, 0, 0, 0, 0]
+        ];
+        setInterval(
+            function () {
+                var stateString = "";
+                for (var i=0; i < gameState.length; i++) {
+                    stateString += gameState[i].toString() + "\n";
+                }
+                console.log(stateString);
+                var x = 2, y = 1;
+                var alive = getAliveNeighbours(gameState, {x: x, y: y});
+                console.log(alive);
+                console.log(
+                    "next state for (" + x.toString() + ", " + y.toString() + 
+                    "): " + transition(gameState[y][x], alive).toString());
+                updateGameState(gameState);
+            }, 5000)
+      </script>
+  </body>
+</html>

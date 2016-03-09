@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<!-- Author: Asher Minden-Webb -->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Game of Life</title>
+    <script src="build/react.js"></script>
+    <script src="build/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+      
+  </head>
+  <body>
+    <h1>Game of Life!</h1>
+    <div id="content"></div>
+    <script src="scripts/gameoflife.js" type="text/babel"></script>
+    <script type="text/babel">
+        // Render initial state
+        ReactDOM.render(
+            <GameArray key="game" gameState={gameState}/>,
+            document.getElementById('content')
+        );
+        var count = 0;
+        
+        // Update state and render GameArray at 1-second intervals
+        setInterval(function () {
+            // Print to console at 10th iteration
+            if (count === 10) {
+                console.log(JSON.stringify(gameState));
+            }
+            updateGameState(gameState);
+            count++;
+            ReactDOM.render(
+                <GameArray key="game" gameState={gameState}/>,
+                document.getElementById('content')
+            );
+        }, 1000)
+      </script>
+  </body>
+</html>
