@@ -1,6 +1,6 @@
 ### Asher Minden-Webb's odds-and-ends Library
 
-This repository is a collection of assorted personal projects by Asher Minden-Webb.  Currently consists of the following files & packages:
+This repository is a collection of assorted personal code sketches and small projects by Asher Minden-Webb.  Currently consists of the following files & packages:
 
 ####`avltree`
 Python implementations of:
