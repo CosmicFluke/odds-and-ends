@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# This module comes from a problem presented at a Microsoft coding competition
+# This module was an attempt to solve a problem presented at a Microsoft coding competition
 # Test files test1.txt and test2.txt belong to Microsoft
 
 # Work-in-progress -- not yet rigorously tested
