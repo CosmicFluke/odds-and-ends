@@ -18,6 +18,7 @@ Python implementations of:
 Simple web app using React.js to build a Game of Life simulation
 * Includes python HTTP server script (using std library http.server) to run app from http://localhost:8000
 * This was my first time writing an app in JavaScript or React
+* Currently not working (last worked in March 2016)
 
 ####`matrixmult`
 * Python script that parses a text file containing a sequence of matrices, calculates the matrix product, and prints the formatted product to stdout
